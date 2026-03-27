@@ -4,21 +4,23 @@ Marketplace de skills e rules de IA para a família/amigos. Tudo que criamos jun
 
 ---
 
-## Onde cada ferramenta guarda suas configurações
+## Como funciona
 
-| Feature | Claude Code | Cursor | Copilot |
-|---|---|---|---|
-| Rules sempre ativas | `CLAUDE.md` | `.mdc` com `alwaysApply: true` | `copilot-instructions.md` |
-| Rules condicionais | — | `.mdc` com `globs` | — |
-| Skills | `.claude/skills/` | `.cursor/skills/` | `.github/skills/` |
+Todas as skills usam o formato `SKILL.md` — um padrão aberto reconhecido pelo Claude Code, Cursor e Copilot. Uma skill escrita uma vez funciona nas três ferramentas.
 
-As três ferramentas usam o mesmo formato `SKILL.md` (padrão aberto). Skills podem ser locais ou remotas (importadas via GitHub).
+Skills podem ser usadas de duas formas:
+- **Local** — copie a pasta para o diretório de skills do seu projeto
+- **Remota** — importe direto deste repo no GitHub
+
+| Ferramenta | Diretório de skills | Remote skills |
+|---|---|---|
+| Claude Code | `.claude/skills/` | — |
+| Cursor | `.cursor/skills/` | Settings → Rules → Remote Rule (GitHub) |
+| Copilot | `.github/skills/` | Reconhece repos no GitHub automaticamente |
 
 ---
 
 ## Skills disponíveis
-
-Cada pasta tem os 3 formatos (Claude Code, Cursor, Copilot) — copie o que precisar para o seu projeto.
 
 | Skill | O que faz | Tipo |
 |---|---|---|
@@ -35,29 +37,31 @@ Cada pasta tem os 3 formatos (Claude Code, Cursor, Copilot) — copie o que prec
 
 ## Como usar
 
-### Claude Code
+### Opção 1 — Remote skill (mais simples)
 
-1. Copie a pasta inteira da skill para `.claude/skills/` no seu projeto
-2. Use `/<nome>` para invocar (ex: `/resumir-texto`)
-3. Para rules, copie o conteúdo do `SKILL.md` para o `CLAUDE.md` do seu projeto
+No Cursor ou Copilot, aponte para este repo no GitHub. A ferramenta importa as skills automaticamente.
 
-### Cursor
+### Opção 2 — Local via symlink
 
-1. Copie a pasta da skill para `.cursor/skills/` no seu projeto (usa o mesmo `SKILL.md`)
-2. Ou importe como remote skill via Settings → Rules → Add Rule → Remote Rule (GitHub)
-3. Para rules, copie o `.mdc` para `.cursor/rules/`
+```bash
+# Claude Code
+mkdir -p .claude/skills
+ln -s ~/ai-rodrigues/skills/* .claude/skills/
 
-### Copilot (VS Code)
+# Cursor
+mkdir -p .cursor/skills
+ln -s ~/ai-rodrigues/skills/* .cursor/skills/
 
-1. Copie a pasta da skill para `.github/skills/` no seu projeto (usa o mesmo `SKILL.md`)
-2. Ou referencie como remote skill a partir do repo no GitHub
-3. Para rules, copie o conteúdo para `.github/copilot-instructions.md`
+# Copilot
+mkdir -p .github/skills
+ln -s ~/ai-rodrigues/skills/* .github/skills/
+```
 
-### Diferença entre Skill, Rule e Rule condicional
+### Diferença entre Skill e Rule
 
 - **Skill** — Você invoca quando quiser (ex: `/traduzir olá mundo`)
 - **Rule** — Fica ativa o tempo todo no projeto (ex: sempre responder em português)
-- **Rule condicional** — Ativa só quando você está editando certo tipo de arquivo (ex: `testes-claros` ativa só em arquivos de teste)
+- **Rule condicional** — Ativa só em certos tipos de arquivo (ex: `testes-claros` só em arquivos de teste)
 
 ---
 
@@ -65,12 +69,8 @@ Cada pasta tem os 3 formatos (Claude Code, Cursor, Copilot) — copie o que prec
 
 ```
 skills/nome-da-skill/
-├── SKILL.md              ← Formato padrão (Claude Code, Cursor, Copilot)
-├── nome.mdc              ← Cursor Rules (para rules, não skills)
-└── nome.prompt.md        ← Copilot Prompts (legado)
+└── SKILL.md              ← Formato único (Claude Code, Cursor, Copilot)
 ```
-
-O `SKILL.md` é o formato principal e funciona nas 3 ferramentas. Os arquivos `.mdc` e `.prompt.md` são mantidos para rules e compatibilidade.
 
 ---
 
@@ -84,5 +84,5 @@ O `SKILL.md` é o formato principal e funciona nas 3 ferramentas. Os arquivos `.
 ## Como contribuir
 
 1. Crie uma pasta em `skills/<nome>/`
-2. Adicione os 3 formatos: `SKILL.md`, `<nome>.mdc` e `<nome>.prompt.md`
+2. Adicione um `SKILL.md` com frontmatter (`name`, `description`)
 3. Atualize este README

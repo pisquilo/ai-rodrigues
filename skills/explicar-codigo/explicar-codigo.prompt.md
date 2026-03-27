@@ -1,8 +1,0 @@
-Explique o código selecionado para alguém que está aprendendo a programar.
-
-1. Comece dizendo **o que o código faz** em uma frase simples
-2. Depois explique **como ele faz**, percorrendo as partes principais
-3. Use analogias do dia a dia quando possível
-4. Destaque partes que podem confundir um iniciante
-5. Evite assumir conhecimento prévio — explique termos técnicos na primeira vez que aparecem
-6. Se o código tiver algum problema ou puder ser melhorado, mencione no final como "Dica"
