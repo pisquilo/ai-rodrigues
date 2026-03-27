@@ -1,0 +1,6 @@
+- Nomes de variáveis e funções devem ser descritivos (evite abreviações como `x`, `tmp`, `aux`)
+- Funções devem fazer uma coisa só — se precisar de um comentário "e também", quebre em duas
+- Não deixe código comentado no projeto — use git para histórico
+- Prefira composição a herança
+- Testes são obrigatórios para lógica de negócio
+- Não adicione dependências sem justificativa
